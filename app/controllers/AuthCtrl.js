@@ -21,7 +21,7 @@ angular.module('MyGrades').controller('AuthCtrl', [
             AuthFactory.registerUser($scope.new_user)
             .then( function(response) {
                 if(response.data.token !== ""){
-                    $location.path(`/profile/${res.data.token}`);
+                    $location.path(`/profile/${response.data.token}`);
                 }
             });
         };

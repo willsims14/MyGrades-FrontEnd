@@ -24,8 +24,7 @@ app.factory("CourseFactory", function(apiUrl, RootFactory, $q, $http){
                     }
                 })
                 .then((res) => {
-                    console.log("Factory Response: ", res);
-
+                    resolve(res.data.results)
                 }).catch((error) => {
                     reject(error);
                 });

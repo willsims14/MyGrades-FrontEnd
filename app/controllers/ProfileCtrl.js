@@ -49,11 +49,15 @@ angular.module('MyGrades').controller('ProfileCtrl', [
         AuthFactory.getUserByToken()
         .then (function(res) {
             $scope.student = res.data;
-            $scope.is_loading = false;
-
             CourseFactory.getCourses($scope.student.username)
-            .then( function(res) {
-                console.log("Response: ", res);
+            .then( function(courses_response) {
+                console.log("Response: ", courses_response);
+                if(courses_response.length){
+                    $scope.courses = courses_response;
+                }else{
+                    $scope.no_courses = true;
+                }
+                $scope.is_loading = false;
             })
 
         });            
