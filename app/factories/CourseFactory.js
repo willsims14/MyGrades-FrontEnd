@@ -32,6 +32,27 @@ app.factory("CourseFactory", function(apiUrl, RootFactory, $q, $http){
         });
     };
 
-    return { getCourses };
 
+
+    let getCourseDetails = function(course_id){
+        return $q((resolve, reject) => {
+        RootFactory.getApiRoot()
+        .then( (root) => {
+                $http({
+                    url: `http://localhost:8000/course/${course_id}/`,
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': "Token " + RootFactory.getToken()
+                    }
+                })
+                .then((res) => {
+                    resolve(res.data)
+                }).catch((error) => {
+                    reject(error);
+                });
+            });
+        });
+    }
+
+    return { getCourses, getCourseDetails };
 });

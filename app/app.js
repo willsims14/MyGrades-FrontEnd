@@ -20,7 +20,11 @@ angular.module('MyGrades').config(
             controller: 'ProfileCtrl',
             templateUrl: '/partials/profile.html'
         })
-        .otherwise("");
+        .when('/course/:course_id/', {
+            controller: 'CourseCtrl',
+            templateUrl: '/partials/course_detail.html'
+        })
+        // .otherwise("/");
     }
 ]);
 

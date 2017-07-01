@@ -33,7 +33,10 @@
 
                    <span class="flow-text">Description: (( course.description ))</span><br>
                    <span class="flow-text"><strong>(( course.current_grade ))</strong></span><br>
-                   <span class=""><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/((course.course))">Details</a></span>
+                   <ul ng-repeat="assignment in course.assignments" ng-if="course.assignments.length > 0">
+                      <li>(( assignment.title ))</li>
+                   </ul>
+                   <span class=""><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/">Details</a></span>
 
            </div>
        </li>
