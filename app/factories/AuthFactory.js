@@ -70,7 +70,8 @@ app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
         });
     };
 
-    let getUserByToken = function(){
+    var getUserByToken = function(){
+        console.log("HELLO");
         return $q((resolve, reject) => {
             $http({
                 url: `http://localhost:8000/student/get/${RootFactory.getToken()}/`,
@@ -90,6 +91,6 @@ app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
     };
 
 
-    return {registerUser, loginUser, getCurrentUser, setCurrentUser, getUserByToken};
+    return { getUserByToken, registerUser, loginUser, getCurrentUser, setCurrentUser };
 
 });

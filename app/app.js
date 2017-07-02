@@ -24,6 +24,10 @@ angular.module('MyGrades').config(
             controller: 'CourseCtrl',
             templateUrl: '/partials/course_detail.html'
         })
+        .when('/create-course/', {
+            controller: 'CreateCourseCtrl',
+            templateUrl: '/partials/create_course_modal.html'
+        });
         // .otherwise("/");
     }
 ]);
