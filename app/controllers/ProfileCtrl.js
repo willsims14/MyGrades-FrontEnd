@@ -58,7 +58,7 @@ angular.module('MyGrades').controller('ProfileCtrl', [
                     $scope.no_courses = true;
                 }
                 $scope.is_loading = false;
-            })
+            });
 
         });            
 

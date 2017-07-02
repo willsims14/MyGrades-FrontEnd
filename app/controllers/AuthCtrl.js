@@ -47,9 +47,9 @@ angular.module('MyGrades').controller('AuthCtrl', [
             $scope.user = {
                 'username':'will',
                 'password':'sims'
-            }
-            $scope.login()
-        }
+            };
+            $scope.login();
+        };
 
 }]);
 

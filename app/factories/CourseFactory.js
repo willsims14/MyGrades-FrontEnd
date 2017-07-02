@@ -24,7 +24,7 @@ app.factory("CourseFactory", function(apiUrl, RootFactory, $q, $http){
                     }
                 })
                 .then((res) => {
-                    resolve(res.data.results)
+                    resolve(res.data.results);
                 }).catch((error) => {
                     reject(error);
                 });
@@ -46,13 +46,42 @@ app.factory("CourseFactory", function(apiUrl, RootFactory, $q, $http){
                     }
                 })
                 .then((res) => {
-                    resolve(res.data)
+                    resolve(res.data);
                 }).catch((error) => {
                     reject(error);
                 });
             });
         });
-    }
+    };
 
-    return { getCourses, getCourseDetails };
+    let createCourse = function(course){
+        return $q((resolve, reject) => {
+            RootFactory.getApiRoot()
+            .then( (root) => {
+                console.log("Root: ", root);
+
+                $http({
+                    url: `${apiUrl}/course/`,
+                    method: "POST",
+                    data: { 
+                        "title": course.title,
+                        "course_number": course.number,
+                        "professor": course.professor,
+                        "semester": course.semester.id,
+                        "description": course.description
+                    },
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        'Authorization': "Token " + RootFactory.getToken()
+                    }
+                }).then( function(res){
+                    resolve(res);
+                }).catch( function(error){
+                    reject(error);
+                });
+            });
+        });
+    };
+
+    return { getCourses, getCourseDetails, createCourse };
 });

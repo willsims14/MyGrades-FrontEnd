@@ -8,8 +8,7 @@ angular.module('MyGrades').controller('CourseCtrl', [
     'apiUrl',
     '$routeParams',
     'CourseFactory',
-    'AuthFactory',
-    function($scope, $http, $location, RootFactory, apiUrl, $routeParams, CourseFactory, AuthFactory) {
+    function($scope, $http, $location, RootFactory, apiUrl, $routeParams, CourseFactory) {
 
         $scope.is_loading = true;
 
@@ -17,13 +16,12 @@ angular.module('MyGrades').controller('CourseCtrl', [
         $('.change-grade-inputs').hide();
 
         $(document).ready(function(){
+            $('.modal').modal();
             $('.tooltipped').tooltip({delay: 50});
             $('.tooltipped').tooltip({position: 'top'});
 
-
         });
-
-        var course_id = $routeParams.course_id
+        var course_id = $routeParams.course_id;
 
         $scope.is_loading = false;
 
