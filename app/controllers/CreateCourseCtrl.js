@@ -11,12 +11,19 @@ angular.module('MyGrades').controller('CreateCourseCtrl', [
     'CourseFactory',
     function($scope, $http, $location, RootFactory, apiUrl, $routeParams, CourseFactory) {
 
+        $scope.semesters_loaded = false;
+        $scope.semesters = ["Fall 2017", "Spring 2017"];
+        $scope.course = {};
+        $scope.semester_selected = false;
+        $scope.user_token = RootFactory.getToken();
+
         CourseFactory.getSemesters()
-        .then( function(response) {
-            $scope.semesters = response.data.results;
-            console.log("Response: ", $scope.semesters);
+        .then( function(res) {
+            console.log("Response: ", res);
+            $scope.db_semesters = res.data.results;
         });
-        
+
+
         $(document).ready(function(){
             $('select').material_select();
             var modal = document.getElementById('modal1');
@@ -40,23 +47,17 @@ angular.module('MyGrades').controller('CreateCourseCtrl', [
 
      
 
-        $scope.course = {};
-        $scope.semester_selected = false;
-
-
-
-        $scope.user_token = RootFactory.getToken();
-
-
 
         $scope.createCourse = function(){
+
             $scope.is_loading = true;
-            console.log("Creatign Course: ", $scope.course);
-            $scope.course.semester = "http://localhost:8000/semester/2/"
+            $scope.course.semester = "http://localhost:8000/semester/2/";
+
+
             CourseFactory.createCourse($scope.course)
             .then( function(res) {
-                console.log("Response: ", res);
                 $scope.is_loading = false;
+                $location.path(`/profile/${user_token}`);
             });
 
         };
