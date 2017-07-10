@@ -83,6 +83,28 @@ app.factory("CourseFactory", function(apiUrl, RootFactory, $q, $http){
         });
     };
 
+    let deleteCourse = function(course_id){
+        return $q((resolve, reject) => {
+            RootFactory.getApiRoot()
+            .then( (root) => {
+                console.log("Root: ", root);
+
+                $http({
+                    url: `${apiUrl}/course/${course_id}/`,
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json; charset=UTF-8",
+                        'Authorization': "Token " + RootFactory.getToken()
+                    }
+                }).then( function(res){
+                    resolve(res);
+                }).catch( function(error){
+                    reject(error);
+                });
+            });
+        });
+    };
+
     let getSemesters = function(){
         return $q((resolve, reject) => {
         RootFactory.getApiRoot()
@@ -103,5 +125,5 @@ app.factory("CourseFactory", function(apiUrl, RootFactory, $q, $http){
         });
     };
 
-    return { getCourses, getCourseDetails, createCourse, getSemesters };
+    return { getCourses, getCourseDetails, createCourse, getSemesters, deleteCourse };
 });
