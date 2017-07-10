@@ -27,8 +27,8 @@ angular.module('MyGrades').config(
         .when('/course/:course_id/settings/', {
             controller: 'CourseCtrl',
             templateUrl: '/partials/course_settings.html'
-        })
-        .otherwise("/");
+        });
+        // .otherwise("/");
     }
 ]);
 

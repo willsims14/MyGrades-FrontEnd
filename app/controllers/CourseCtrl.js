@@ -12,25 +12,22 @@ angular.module('MyGrades').controller('CourseCtrl', [
 
         $scope.is_loading = true;
 
-        // jQuery for Materialize components
-        $('.change-grade-inputs').hide();
 
         $(document).ready(function(){
+            // jQuery for Materialize components
+            $('.change-grade-inputs').hide();
             $('.tooltipped').tooltip({delay: 50});
             $('.tooltipped').tooltip({position: 'top'});
-
             $('select').material_select();
-
-
         });
 
 
         var course_id = $routeParams.course_id;
 
-        $scope.is_loading = false;
 
         CourseFactory.getCourseDetails(course_id)
         .then( function(response) {
+            $scope.is_loading = false;
             $scope.course = response;
         });
 

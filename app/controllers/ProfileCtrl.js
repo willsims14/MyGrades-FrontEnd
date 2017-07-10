@@ -17,6 +17,7 @@ angular.module('MyGrades').controller('ProfileCtrl', [
         /***************************************************/
         $scope.course = {};
         $scope.user_token = $routeParams.token;
+        $scope.userLoggedIn = true;
 
         // Initializes collapsible course list
         $( document ).ready( function(){

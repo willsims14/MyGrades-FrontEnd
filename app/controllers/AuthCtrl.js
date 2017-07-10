@@ -21,6 +21,7 @@ angular.module('MyGrades').controller('AuthCtrl', [
             AuthFactory.registerUser($scope.new_user)
             .then( function(response) {
                 if(response.data.token !== ""){
+                    $scope.userLoggedIn = true;
                     $location.path(`/profile/${response.data.token}`);
                 }
             });
@@ -33,6 +34,8 @@ angular.module('MyGrades').controller('AuthCtrl', [
                 .then( function(res) {
                     if(res.data.token !== ""){
                         $scope.invalid_login = false;
+                        $scope.userLoggedIn = true;
+                        console.log("LoggedIn? ", $scope.userLoggedIn);
                         AuthFactory.setCurrentUser($scope.user);
                         $location.path(`/profile/${res.data.token}`);
                     }
@@ -42,6 +45,9 @@ angular.module('MyGrades').controller('AuthCtrl', [
             }
         };
 
+        $scope.goToUserProfile = function(){
+            $location.path(`/profile/${RootFactory.getToken()}`);
+        };
 
         $scope.quickLogin = function(){
             $scope.user = {

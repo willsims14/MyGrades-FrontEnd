@@ -1,5 +1,7 @@
-<div class="container center"><h1>(( course.title ))</h1></div>
-<div class="container center-align" ng-show="is_loading">
+<div ng-show="!is_loading" class="container center"><h1>(( course.title ))</h1></div>
+
+<div class="loader">
+<div class="container center " ng-show="is_loading">
     <div class="preloader-wrapper big active " >
         <div class="spinner-layer spinner-green-only">
             <div class="circle-clipper left">
@@ -14,7 +16,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 <div ng-show="!is_loading">
     <div class="container" >

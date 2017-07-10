@@ -1,9 +1,11 @@
-<div class="container center">
+
+<div class="container center" ng-show="!is_loading">
     <h2 class="lead">Profile</h2>
-    <h3 class="lead">(( student.first_name )) (( student.last_name ))</h3>
+    <h3 class="lead" >(( student.first_name )) (( student.last_name ))</h3>
 </div>
 
-<div class="container center-align" ng-show="is_loading">
+<div class="loader" ng-show="is_loading">
+<div class="container center-align" >
     <div class="preloader-wrapper big active " >
         <div class="spinner-layer spinner-green-only">
             <div class="circle-clipper left">
@@ -17,6 +19,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
