@@ -22,6 +22,12 @@
 
 <div ng-show="!is_loading">
 
+   <div class="container center">
+       <a class='dropdown-button btn ' data-beloworigin="true"  data-activates='dropdown6' ng-show="!no_courses">Filter By Semester</a>
+       <ul id='dropdown6' class='dropdown-content' >
+           <li ng-repeat="semester in semesters" style="text-align: center" value="(( semester.id ))" ng-click="setSemesterFilter(semester)"><a>(( semester.season )) (( semester.year ))</a></li>
+       </ul>
+   </div>
 
     <div class="container " ng-show="!no_courses">
      <ul class="collapsible" data-collapsible="expandable" >
@@ -42,7 +48,7 @@
                    <span class="flow-text col s5 course-description" style="margin-left: 20px">(( course.description ))</span>
                    <span class="flow-text col s3 truncate">(( course.professor ))</span>
                    <span class="col s2 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/">Assignments</a></span>
-                   <span class="col s1 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/"><i class="material-icons dp48">settings</i></a></span>
+                   <span class="col s1 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/settings/"><i class="material-icons dp48">settings</i></a></span>
 
                    
                    
@@ -63,13 +69,12 @@
       <h5 class="flow-text">Click red button</h5>
    </div>
 
-
    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-             <a class="btn-floating btn-large red" href="#!/create-course/">
+             <button class="btn-floating btn-large red" ng-click="openCreateCourseModal()">
                <i class="material-icons">add</i>
-             </a>
+             </button>
    </div>
 
 
 
-
+<ng-include src="'/partials/create_course_modal.html'">

@@ -1,0 +1,31 @@
+
+<div class="container center" ng-show="!is_loading"><h1>(( course.title )) Settings</h1></div>
+<div class="container center-align" ng-show="is_loading">
+    <div class="preloader-wrapper big active " >
+        <div class="spinner-layer spinner-green-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="!is_loading">
+
+
+    <div class="container center" >
+        <a class="waves-effect waves-light btn col s2  red lighten-1" ng-click="deleteCourse(course.id)"><i class="material-icons dp48">delete</i></a>
+    </div>
+
+
+
+
+
+</div>

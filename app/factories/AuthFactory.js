@@ -81,7 +81,6 @@ app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
                 }
             })
             .then((res) => {
-                console.log("ResponseFactory: ", res);
                 resolve(res);
             }).catch((error) => {
                 reject(error);
