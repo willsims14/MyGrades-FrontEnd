@@ -8,6 +8,7 @@
 app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
     // User variable temporarily stored on login
     var current_user = {};
+    var current_user_token = "";
 
     // Sets the current user variable
     let setCurrentUser = function(user){
@@ -40,6 +41,7 @@ app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
             .then((res) => {
                 RootFactory.setToken(res.data.token);
                 if (res.data.token !== ""){
+                    current_user_token = res.data.token;
                     resolve(res);
                 }else{
                     reject(res);
@@ -63,6 +65,7 @@ app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
                 }
             }).then( function(res) {
                 RootFactory.setToken(res.data.token);
+                current_user_token = res.data.token;
                 resolve(res);
             }).catch( function(error){
                 reject(error);
@@ -81,6 +84,7 @@ app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
                 }
             })
             .then((res) => {
+                current_user_token = res.data.token;
                 resolve(res);
             }).catch((error) => {
                 reject(error);
@@ -88,6 +92,7 @@ app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
         });
 
     };
+
 
 
     return { getUserByToken, registerUser, loginUser, getCurrentUser, setCurrentUser };

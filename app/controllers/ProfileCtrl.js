@@ -17,6 +17,7 @@ angular.module('MyGrades').controller('ProfileCtrl', [
         /***************************************************/
         $scope.course = {};
         $scope.user_token = $routeParams.token;
+        $scope.userLoggedIn = true;
 
         // Initializes collapsible course list
         $( document ).ready( function(){
@@ -77,11 +78,13 @@ angular.module('MyGrades').controller('ProfileCtrl', [
                 }
             );
             $('select').material_select();
-        }            
+        }
 
         $scope.createCourse = function(){
+            console.log("Course: ", $scope.course)
             CourseFactory.createCourse($scope.course)
-            .then( function() {
+            .then( function(x) {
+                console.log(x)
                 $route.reload();
             });
 

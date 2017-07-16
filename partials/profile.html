@@ -1,9 +1,11 @@
-<div class="container center">
+
+<div class="container center" ng-show="!is_loading">
     <h2 class="lead">Profile</h2>
-    <h3 class="lead">(( student.first_name )) (( student.last_name ))</h3>
+    <h3 class="lead" >(( student.first_name )) (( student.last_name ))</h3>
 </div>
 
-<div class="container center-align" ng-show="is_loading">
+<div class="loader" ng-show="is_loading">
+<div class="container center-align" >
     <div class="preloader-wrapper big active " >
         <div class="spinner-layer spinner-green-only">
             <div class="circle-clipper left">
@@ -18,6 +20,7 @@
         </div>
     </div>
 </div>
+</div>
 
 
 <div ng-show="!is_loading">
@@ -30,33 +33,24 @@
    </div>
 
     <div class="container " ng-show="!no_courses">
-     <ul class="collapsible" data-collapsible="expandable" >
-       <li  ng-repeat='course in courses | filter: { semester: semester_filter }'>
-           <div class="collapsible-header flow-text hoverable">
-                   <i class="material-icons col s1">filter_drama</i>
-                   <span class="left col truncate">(( course.title )) <span class="small">( ((course.course_number)) )</span></span>
-                    <span class="flow-text right">(( course.current_grade ))</span>
-           </div>
+        <ul class="collapsible" data-collapsible="expandable" >
+            <li  ng-repeat='course in courses | filter: { semester: semester_filter }'>
 
+                <div class="collapsible-header flow-text hoverable">
 
+                        <i class="material-icons col s1">filter_drama</i>
+                        <span class="left col truncate col s4">(( course.title )) <span class="small">( ((course.course_number)) )</span></span>
+                        <span ng-if="(( course.current_grade )) != 0" class="flow-text right">(( course.current_grade ))%</span>
+                        <span ng-if="(( course.current_grade )) == 0" class="flow-text right">No Grades Yet!</span>
 
+                </div>
 
-
-           <div class="collapsible-body row course-accordion valign-wrapper">
-
-                   
-                   <span class="flow-text col s5 course-description" style="margin-left: 20px">(( course.description ))</span>
-                   <span class="flow-text col s3 truncate">(( course.professor ))</span>
-                   <span class="col s2 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/">Assignments</a></span>
-                   <span class="col s1 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/settings/"><i class="material-icons dp48">settings</i></a></span>
-
-                   
-                   
-<!--                    <ul class="center center-align"  ng-if="course.assignments.length > 0">
-                      <li class="col s12" ng-repeat="assignment in course.assignments">(( assignment.title ))</li>
-                   </ul> -->
-
-           </div>
+                <div class="collapsible-body row course-accordion valign-wrapper">
+                    <span class="flow-text col s5 course-description" style="margin-left: 20px">(( course.description ))</span>
+                    <span class="flow-text col s3 truncate">(( course.professor ))</span>
+                    <span class="col s2 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/">Assignments</a></span>
+                    <span class="col s1 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/settings/"><i class="material-icons dp48">settings</i></a></span>
+                </div>
        </li>
 
      </ul>
