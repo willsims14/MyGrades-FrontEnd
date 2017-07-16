@@ -7,10 +7,13 @@ angular.module('MyGrades').controller('CourseCtrl', [
     'RootFactory',
     'apiUrl',
     '$routeParams',
+    '$route',
     'CourseFactory',
-    function($scope, $http, $location, RootFactory, apiUrl, $routeParams, CourseFactory) {
+    'AssignmentFactory',
+    function($scope, $http, $location, RootFactory, apiUrl, $routeParams, $route, CourseFactory, AssignmentFactory) {
 
         $scope.is_loading = true;
+        $scope.assignment = {};
 
 
         $(document).ready(function(){
@@ -23,12 +26,15 @@ angular.module('MyGrades').controller('CourseCtrl', [
 
 
         var course_id = $routeParams.course_id;
+        console.log("CourseID: ", course_id);
 
 
         CourseFactory.getCourseDetails(course_id)
         .then( function(response) {
+            console.log("CourseDetailResponse: ", response);
             $scope.is_loading = false;
             $scope.course = response;
+            console.log("Course: ", $scope.course);
         });
 
 
@@ -40,6 +46,71 @@ angular.module('MyGrades').controller('CourseCtrl', [
             });
 
         };
+
+        $scope.createAssignment = function(){
+
+            if($scope.assignment.points_received > $scope.assignment.points_possible){
+                $scope.assignment.points_received = 0;
+                $scope.error_text = "Cannot receive more points than possible.";
+                // var modal = document.getElementById('modal2');
+                // var jqueryModal = $(modal);
+                // jqueryModal.closeModal();
+                $scope.openErrorModal();
+
+            }else{
+
+                $scope.assignment.course = $scope.course.url;
+                AssignmentFactory.createAssignment($scope.assignment)
+                .then( function(res){
+                    console.log("Assignment Response: ", res);
+                    $route.reload();
+                });
+            }
+
+        }
+
+        $scope.deleteAssignment = function(assignment_id){
+            console.log("AssignmentID: ", assignment_id);
+            AssignmentFactory.deleteAssignment(assignment_id)
+            .then( function(res){
+                console.log("DeleteAssignmentResponse: ", res);
+                $route.reload();
+            });
+        }
+
+        $scope.showChangeAssignmentGradeInput = function(assignment_id){
+            console.log("Assignment to Change: ", assignment_id);
+        }
+
+        $scope.openCreateAssignmentModal = function(){
+            var modal = document.getElementById('modal2');
+            var jqueryModal = $(modal);
+            jqueryModal.openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: 0.5, // Opacity of modal background
+                inDuration: 300, // Transition in duration
+                outDuration: 200, // Transition out duration
+                startingTop: '4%', // Starting top style attribute
+                endingTop: '10%', // Ending top style attribute
+                }
+            );
+            $('select').material_select();
+        }
+
+        $scope.openErrorModal = function(){
+            var modal = document.getElementById('modal3');
+            var jqueryModal = $(modal);
+            jqueryModal.openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: 0.5, // Opacity of modal background
+                inDuration: 300, // Transition in duration
+                outDuration: 200, // Transition out duration
+                startingTop: '4%', // Starting top style attribute
+                endingTop: '10%', // Ending top style attribute
+                }
+            );
+            $('select').material_select();
+        }
 
 
 

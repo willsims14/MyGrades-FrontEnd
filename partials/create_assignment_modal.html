@@ -1,0 +1,48 @@
+
+  <!-- Modal Structure -->
+  <div id="modal2" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>New Assignment</h4>
+
+
+
+    <form class="col s12">
+
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="assignment_title" type="text" class="validate" ng-model="assignment.title">
+          <label for="assignment_title">Assignment Title</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="assignment_description" type="text" class="validate" ng-model="assignment.description">
+          <label for="assignment_description">Assignment Description</label>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="points_possible" type="number" class="validate" ng-model="assignment.points_possible">
+          <label for="points_possible">Points Possible</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="points_received" type="number" class="validate" ng-model="assignment.points_received">
+          <label for="points_received">Points Received (optional)</label>
+        </div>
+      </div>
+
+    </form>
+
+</div>
+
+
+    <div class="modal-footer">
+          <a ng-click="createAssignment()" class="modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+          <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+    </div>
+
+</div>
+
+
+<ng-include src="'/partials/error_modal.html'">
