@@ -46,7 +46,8 @@
                 </div>
 
                 <div class="collapsible-body row course-accordion valign-wrapper">
-                    <span class="flow-text col s5 course-description" style="margin-left: 20px">(( course.description ))</span>
+                    <span class="flow-text col s3 course-description" style="margin-left: 20px">(( course.description ))</span>
+                    <span class="flow-text col s2 ">(( course.semester.season )) (( course.semester.year ))</span>
                     <span class="flow-text col s3 truncate">(( course.professor ))</span>
                     <span class="col s2 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/">Assignments</a></span>
                     <span class="col s1 right"><a class="btn btn-sm waves-effect waves-light" href="#!/course/((course.id))/settings/"><i class="material-icons dp48">settings</i></a></span>

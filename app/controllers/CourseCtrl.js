@@ -7,8 +7,10 @@ angular.module('MyGrades').controller('CourseCtrl', [
     'RootFactory',
     'apiUrl',
     '$routeParams',
+    '$route',
     'CourseFactory',
-    function($scope, $http, $location, RootFactory, apiUrl, $routeParams, CourseFactory) {
+    'AssignmentFactory',
+    function($scope, $http, $location, RootFactory, apiUrl, $routeParams, $route, CourseFactory, AssignmentFactory) {
 
         $scope.is_loading = true;
 
@@ -23,12 +25,15 @@ angular.module('MyGrades').controller('CourseCtrl', [
 
 
         var course_id = $routeParams.course_id;
+        console.log("CourseID: ", course_id);
 
 
         CourseFactory.getCourseDetails(course_id)
         .then( function(response) {
+            console.log("CourseDetailResponse: ", response);
             $scope.is_loading = false;
             $scope.course = response;
+            console.log("Course: ", $scope.course);
         });
 
 
@@ -40,6 +45,27 @@ angular.module('MyGrades').controller('CourseCtrl', [
             });
 
         };
+
+        $scope.createAssignment = function(){
+            AssignmentFactory.createAssignment()
+            .then( function(res){
+                console.log("Assignment Response: ", res);
+            });
+
+        }
+
+        $scope.deleteAssignment = function(assignment_id){
+            console.log("AssignmentID: ", assignment_id);
+            AssignmentFactory.deleteAssignment(assignment_id)
+            .then( function(res){
+                console.log("DeleteAssignmentResponse: ", res);
+                $route.reload();
+            });
+        }
+
+        $scope.showChangeAssignmentGradeInput = function(assignment_id){
+            console.log("Assignment to Change: ", assignment_id);
+        }
 
 
 
