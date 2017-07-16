@@ -41,7 +41,7 @@
         <div class="input-field col s12">
           <select id="semester_dropdown" ng-model="course.semester" >
             <option value="" disabled selected>Choose a Semester</option>
-            <option  ng-repeat="semester in semesters" value="(( semester.url ))">(( semester.season )) (( semester.year ))</option>
+            <option  ng-repeat="semester in semesters" value="(( semester.id ))">(( semester.season )) (( semester.year ))</option>
           </select>
           <label for="semester_dropdown">Semester</label>
         </div>

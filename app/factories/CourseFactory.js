@@ -61,13 +61,13 @@ app.factory("CourseFactory", function(apiUrl, RootFactory, $q, $http){
                 console.log("Root: ", root);
 
                 $http({
-                    url: `${apiUrl}/course/`,
+                    url: `${apiUrl}/course/create/`,
                     method: "POST",
-                    data: { 
+                    data: {
                         "title": course.title,
                         "course_number": course.number,
                         "professor": course.professor,
-                        "semester": course.semester,
+                        "semester": parseInt(course.semester),
                         "description": course.description
                     },
                     headers: {
