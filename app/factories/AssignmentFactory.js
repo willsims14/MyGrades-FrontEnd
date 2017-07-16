@@ -11,16 +11,21 @@ app.factory("AssignmentFactory", function(apiUrl, RootFactory, $q, $http){
 
 
 
-    let createAssignment = function(course){
+    let createAssignment = function(assignment){
+        console.log("Creating assignment: ", assignment);
         return $q((resolve, reject) => {
             RootFactory.getApiRoot()
             .then( (root) => {
                 console.log("Root: ", root);
                 $http({
-                    url: `${apiUrl}/course/create/`,
+                    url: `${apiUrl}/assignment/`,
                     method: "POST",
                     data: {
                         "title": assignment.title,
+                        "description": assignment.description,
+                        "points_received": assignment.points_received,
+                        "points_possible": assignment.points_possible,
+                        "course": assignment.course
                     },
                     headers: {
                         "Content-Type": "application/json; charset=UTF-8",

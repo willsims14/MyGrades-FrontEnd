@@ -13,6 +13,7 @@ angular.module('MyGrades').controller('CourseCtrl', [
     function($scope, $http, $location, RootFactory, apiUrl, $routeParams, $route, CourseFactory, AssignmentFactory) {
 
         $scope.is_loading = true;
+        $scope.assignment = {};
 
 
         $(document).ready(function(){
@@ -47,9 +48,12 @@ angular.module('MyGrades').controller('CourseCtrl', [
         };
 
         $scope.createAssignment = function(){
-            AssignmentFactory.createAssignment()
+            console.log("Assignemtn: ", $scope.assignment);
+            $scope.assignment.course = $scope.course.url;
+            AssignmentFactory.createAssignment($scope.assignment)
             .then( function(res){
                 console.log("Assignment Response: ", res);
+                $route.reload();
             });
 
         }
@@ -65,6 +69,21 @@ angular.module('MyGrades').controller('CourseCtrl', [
 
         $scope.showChangeAssignmentGradeInput = function(assignment_id){
             console.log("Assignment to Change: ", assignment_id);
+        }
+
+        $scope.openCreateAssignmentModal = function(){
+            var modal = document.getElementById('modal2');
+            var jqueryModal = $(modal);
+            jqueryModal.openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: 0.5, // Opacity of modal background
+                inDuration: 300, // Transition in duration
+                outDuration: 200, // Transition out duration
+                startingTop: '4%', // Starting top style attribute
+                endingTop: '10%', // Ending top style attribute
+                }
+            );
+            $('select').material_select();
         }
 
 
