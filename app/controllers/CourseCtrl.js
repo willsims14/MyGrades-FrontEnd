@@ -48,13 +48,24 @@ angular.module('MyGrades').controller('CourseCtrl', [
         };
 
         $scope.createAssignment = function(){
-            console.log("Assignemtn: ", $scope.assignment);
-            $scope.assignment.course = $scope.course.url;
-            AssignmentFactory.createAssignment($scope.assignment)
-            .then( function(res){
-                console.log("Assignment Response: ", res);
-                $route.reload();
-            });
+
+            if($scope.assignment.points_received > $scope.assignment.points_possible){
+                $scope.assignment.points_received = 0;
+                $scope.error_text = "Cannot receive more points than possible.";
+                // var modal = document.getElementById('modal2');
+                // var jqueryModal = $(modal);
+                // jqueryModal.closeModal();
+                $scope.openErrorModal();
+
+            }else{
+
+                $scope.assignment.course = $scope.course.url;
+                AssignmentFactory.createAssignment($scope.assignment)
+                .then( function(res){
+                    console.log("Assignment Response: ", res);
+                    $route.reload();
+                });
+            }
 
         }
 
@@ -73,6 +84,21 @@ angular.module('MyGrades').controller('CourseCtrl', [
 
         $scope.openCreateAssignmentModal = function(){
             var modal = document.getElementById('modal2');
+            var jqueryModal = $(modal);
+            jqueryModal.openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: 0.5, // Opacity of modal background
+                inDuration: 300, // Transition in duration
+                outDuration: 200, // Transition out duration
+                startingTop: '4%', // Starting top style attribute
+                endingTop: '10%', // Ending top style attribute
+                }
+            );
+            $('select').material_select();
+        }
+
+        $scope.openErrorModal = function(){
+            var modal = document.getElementById('modal3');
             var jqueryModal = $(modal);
             jqueryModal.openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
