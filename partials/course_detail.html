@@ -24,9 +24,13 @@
             <li class="collection-header"><h4>Assignments</h4></li>
             <li class="collection-item row" ng-repeat="assignment in course.assignments">
                 <span class="col s4 flow-text">(( assignment.title )) </span>
-                <i  class="col s4" >(( assignment.points_received ? assignment.points_received : '*' )) / (( assignment.points_possible ))</i>
+                <i  class="col s4" ng-show="!changingGrade"><span>(( assignment.points_received ? assignment.points_received : '*' ))</span> / (( assignment.points_possible ))</i>
+                <i id="changing_grade_row" class="col s4" ng-show="changingGrade"><span id="newly_received_grade_input" class="col s5"><input id="new_grade_input" class="input_field" type="number" ng-model="assignment.new_grade"></span><span class="col s7"> / (( assignment.points_possible ))</span></i>
+
                 <a class="waves-effect waves-light btn col s2  red lighten-1" ng-click="deleteAssignment(assignment.id)"><i class="material-icons dp48">delete</i></a>
-                <a class="waves-effect waves-light btn col s2" ng-click="showChangeAssignmentGradeInput(assignment.id, assignment.points_possible)">Edit Grade</a>
+                <a class="waves-effect waves-light btn col s2" ng-show="!changingGrade" ng-class="ungradedAssignment(assignment.points_received)" ng-click="changingGrade = true">Edit Grade</a>
+                <a class="waves-effect waves-light btn col s2" ng-show="changingGrade" ng-class="ungradedAssignment(assignment.points_received)" ng-click="editAssignmentGrade(assignment)">Submit</a>
+
             </li>
         </ul>
         <div class="center" ng-show="no_assignments">
@@ -34,14 +38,14 @@
             <h5 class="flow-text">Add a new course Using the red button in the bottom right corner.</h5>
         </div>
     </div>
-    <div class="container col s12" ng-show="changingGrade">
+<!--     <div class="container col s12" ng-show="changingGrade">
         <label class="lead col s12" for="change_grade_input">New Grade:</label>
         <div class="col s12">
         <input id="change_grade_input" class="col s6" type="number" placeholder="* / (( changePointsPossible ))" ng-model="new_grade">
         <button class="waves-effect waves-light btn col s6" ng-click="changeAssignmentGrade(assignment.id)">Change Grade</button>
         </div>
 
-    </div>
+    </div> -->
 
      <div class="container center" ng-show="!is_loading">
         <div ng-show="!no_assignments">

@@ -10,3 +10,21 @@
 .loader{
     margin-top: 10%;
 }
+
+#newly_received_grade_input{
+    width: 25%;
+    max-height: 0.5em;
+    margin-bottom: 15px;
+}
+
+#new_grade_input{
+    margin: 0;
+    max-height: 1rem;
+    background-color: lightyellow;
+    padding-top: 5px;
+    /*height: 1em;*/
+}
+
+#changing_grade_row{
+    margin-top: 15px;
+}
