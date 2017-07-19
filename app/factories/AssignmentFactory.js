@@ -63,6 +63,37 @@ app.factory("AssignmentFactory", function(apiUrl, RootFactory, $q, $http){
         });
     };
 
+    let patchAssignment = function(assignment){
+        console.log("Factory, AssignmentID: ", assignment);
+        return $q((resolve, reject) => {
+            RootFactory.getApiRoot()
+            .then( (root) => {
+                console.log("Root: ", root);
 
-    return { createAssignment, deleteAssignment };
+                $http({
+                    url: `${apiUrl}/assignment/${parseInt(assignment.id)}/`,
+                    method: "PUT",
+                    data: {
+                        "title": assignment.title,
+                        "description": assignment.description,
+                        "points_received": assignment.points_received,
+                        "points_possible": assignment.points_possible,
+                        "course": assignment.course
+                    },
+                    headers: {
+                        "Content-Type": "application/json; charset=UTF-8",
+                        'Authorization': "Token " + RootFactory.getToken()
+                    }
+                }).then( function(res){
+                    resolve(res);
+                }).catch( function(error){
+                    reject(error);
+                });
+            });
+        });
+    };
+
+
+
+    return { createAssignment, deleteAssignment, patchAssignment };
 });

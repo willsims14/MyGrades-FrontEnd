@@ -14,6 +14,7 @@ angular.module('MyGrades').controller('CourseCtrl', [
 
         $scope.is_loading = true;
         $scope.assignment = {};
+        $scope.changingGrade = false;
 
 
         $(document).ready(function(){
@@ -78,8 +79,25 @@ angular.module('MyGrades').controller('CourseCtrl', [
             });
         }
 
-        $scope.showChangeAssignmentGradeInput = function(assignment_id){
-            console.log("Assignment to Change: ", assignment_id);
+        $scope.editAssignmentGrade = function(assignment){
+
+            assignment.points_received = "" + assignment.new_grade;
+
+            AssignmentFactory.patchAssignment(assignment)
+            .then (function(res) {
+                console.log("Patch Respones: ", res);
+                $route.reload();
+            });
+
+        }
+
+        // If assignment already has a grade, disable the EDIT GRADE button
+        $scope.ungradedAssignment = function(points){
+            if(points > 0){
+                return "disabled";
+            }else{
+                return "";
+            }
         }
 
         $scope.openCreateAssignmentModal = function(){
