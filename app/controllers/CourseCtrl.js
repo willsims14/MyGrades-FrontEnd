@@ -15,6 +15,7 @@ angular.module('MyGrades').controller('CourseCtrl', [
         $scope.is_loading = true;
         $scope.assignment = {};
         $scope.changingGrade = false;
+        $scope.point_value_error = false;
 
 
         $(document).ready(function(){
@@ -49,17 +50,21 @@ angular.module('MyGrades').controller('CourseCtrl', [
         };
 
         $scope.createAssignment = function(){
-
+            console.log("New Assignment", $scope.assignment);
             if($scope.assignment.points_received > $scope.assignment.points_possible){
                 $scope.assignment.points_received = 0;
                 $scope.error_text = "Cannot receive more points than possible.";
-                // var modal = document.getElementById('modal2');
-                // var jqueryModal = $(modal);
-                // jqueryModal.closeModal();
+
                 $scope.openErrorModal();
+                //$scope.openCreateAssignmentModal();
 
             }else{
-
+                if($scope.assignment.points_received){
+                    console.log("POINTS ENTERED");
+                }else{
+                    console.log("POINTS NOT ENTERED");
+                    $scope.assignment.points_received = null;
+                }
                 $scope.assignment.course = $scope.course.url;
                 AssignmentFactory.createAssignment($scope.assignment)
                 .then( function(res){
@@ -81,13 +86,23 @@ angular.module('MyGrades').controller('CourseCtrl', [
 
         $scope.editAssignmentGrade = function(assignment){
 
-            assignment.points_received = "" + assignment.new_grade;
 
-            AssignmentFactory.patchAssignment(assignment)
-            .then (function(res) {
-                console.log("Patch Respones: ", res);
-                $route.reload();
-            });
+
+            console.log("Assignment!!!!!!: ", assignment);
+            if(parseInt(assignment.new_grade) > assignment.points_possible){
+                $scope.error_text = "Cannot receive more points than what is possible.";
+                $scope.openErrorModal();
+
+            }else{
+                assignment.points_received = assignment.new_grade;
+                AssignmentFactory.patchAssignment(assignment)
+                .then (function(res) {
+                    console.log("Patch Respones: ", res);
+                    Materialize.toast('Assignment Created', 6000, 'rounded');
+                    $route.reload();
+                });
+            }
+
 
         }
 
@@ -116,7 +131,10 @@ angular.module('MyGrades').controller('CourseCtrl', [
         }
 
         $scope.openErrorModal = function(){
-            var modal = document.getElementById('modal3');
+
+            // $('#modal3').modal('open');
+
+            var modal = $('#modal3')
             var jqueryModal = $(modal);
             jqueryModal.openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -127,7 +145,7 @@ angular.module('MyGrades').controller('CourseCtrl', [
                 endingTop: '10%', // Ending top style attribute
                 }
             );
-            $('select').material_select();
+            //$('select').material_select();
         }
 
 

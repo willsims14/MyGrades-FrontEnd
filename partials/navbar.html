@@ -2,9 +2,9 @@
     <div class="nav-wrapper teal">
       <a href="#" class="brand-logo center">MyGrades</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li ng-click="goToUserProfile()"><a href="">Profile</a></li>
-        <li><a href="#!/" >Logout</a></li>
-        <li><a href=""><i class="material-icons">view_module</i></a></li>
+        <li ng-show="userIsLoggedIn()" class="left"><a href="#!/">Logout</a></li>
+        <li ng-show="userIsLoggedIn()" ng-click="goToUserCourses()"><a href="">My Courses</a></li>
+        <li ng-show="userIsLoggedIn()"><a href=""><i class="material-icons">account_circle</i></a></li>
       </ul>
     </div>
 

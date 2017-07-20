@@ -28,3 +28,7 @@
 #changing_grade_row{
     margin-top: 15px;
 }
+
+#profile_user_name{
+    text-transform: capitalize;
+}

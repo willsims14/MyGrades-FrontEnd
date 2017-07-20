@@ -12,6 +12,7 @@ angular.module('MyGrades').controller('AuthCtrl', [
 
         $scope.is_new_user = false;
         $scope.invalid_login = false;
+        $scope.userLoggedIn = false;
 
         $scope.user = {};
 
@@ -45,8 +46,10 @@ angular.module('MyGrades').controller('AuthCtrl', [
             }
         };
 
-        $scope.goToUserProfile = function(){
-            $location.path(`/profile/${RootFactory.getToken()}`);
+        $scope.goToUserCourses = function(){
+            if(AuthFactory.getCurrentUser()){
+                $location.path(`/profile/${RootFactory.getToken()}`);
+            }
         };
 
         $scope.quickLogin = function(){
@@ -56,6 +59,13 @@ angular.module('MyGrades').controller('AuthCtrl', [
             };
             $scope.login();
         };
+
+        $scope.userIsLoggedIn = function(){
+            if(AuthFactory.getCurrentUser() != undefined){
+                return true;
+            }
+            return false;
+        }
 
 }]);
 
