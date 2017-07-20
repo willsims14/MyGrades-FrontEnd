@@ -7,7 +7,7 @@
 
 app.factory("AuthFactory", function(apiUrl, RootFactory, $q, $http){
     // User variable temporarily stored on login
-    var current_user = {};
+    var current_user;
     var current_user_token = "";
 
     // Sets the current user variable

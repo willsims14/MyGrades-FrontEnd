@@ -1,7 +1,7 @@
 
 <div class="container center" ng-show="!is_loading">
-    <h2 class="lead">Profile</h2>
-    <h3 class="lead" >(( student.first_name )) (( student.last_name ))</h3>
+    <h2 id="profile_user_name" class="lead">(( student.first_name )) (( student.last_name ))</h2>
+    <h3 class="lead">Courses</h3>
 </div>
 
 <div class="loader" ng-show="is_loading">
@@ -26,7 +26,11 @@
 <div ng-show="!is_loading">
 
    <div class="container center">
-       <a class='dropdown-button btn ' data-beloworigin="true"  data-activates='dropdown6' ng-show="!no_courses">Filter By Semester</a>
+    <br>
+      <div class="container">
+        <a class='dropdown-button btn ' data-beloworigin="true"  data-activates='dropdown6' ng-show="!no_courses">Change Semester</a>
+      </div>
+      <br>
        <ul id='dropdown6' class='dropdown-content' >
            <li ng-repeat="semester in semesters" style="text-align: center" value="(( semester.id ))" ng-click="setSemesterFilter(semester)"><a>(( semester.season )) (( semester.year ))</a></li>
        </ul>
